@@ -1,0 +1,76 @@
+server:
+  port: 9530
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://fsupa:fsupa666@eureka1:9527/eureka/,http://fsupa:fsupa666@eureka2:9528/eureka/
+  instance:
+    prefer-ip-address: true
+logging:                                # 配置日志级别，让hibernate打印出执行的SQL
+  config: classpath:logback-dev.xml
+  level:
+    root: INFO  #指定最基础的日志输出级别为Info
+    org.hibernate: INFO
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
+feign:
+  hystrix:
+    enabled: true
+  client:
+    config:
+      default:
+        connectTimeout: 5000  #设置请求超时时间
+        readTimeout:  5000  #设置请求超时时间
+        loggerLevel:  full
+  compression:
+    request:
+      mime-types: text/xml,application/xml,application/json #支持请求,或者相应压缩
+      min-request-size: 4096 #设置请求阀值
+      enable: true
+      response: true
+management:
+  security:
+    enabled:  false   #config server 默认需要认证 所以需要先把认证先屏蔽了所以才可以使用动态刷新  加上actuator
+
+spring:
+  application:
+    name: upa-client-platform
+  zipkin:
+    base-url: http://localhost:9534
+  sleuth:
+    sampler:
+      percentage: 1.0
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+
+
+#  cloud:
+#    stream:
+#      bindings:
+#        myInput:
+#          destination: Inqueue #input绑定使用名为queue.log.messages的消息交换机
+#          binder: local_rabbit  #Binder — 消息中间件的实现，如Kafka或RabbitMQ
+#          group: logMessageConsumers  #消费组
+#        myOutput:
+#          destination: Outqueue  #output绑定使用名为queue.pretty.log.messages的消息交换机
+#          binder: local_rabbit
+#        anotherOutput:
+#          destination: anotherOutputqueue  #output绑定使用名为queue.pretty.log.messages的消息交换机
+#          binder: local_rabbit
+#      binders:      #Bindings — 声明输入和输出通道的接口集合。
+#        local_rabbit:
+#          type: rabbit
+#          environment:
+#            spring:
+#              rabbitmq:
+#                host: 127.0.0.1
+#                port: 15672
+#                username: guest
+#                password: guest
+#                virtual-host: /
+
+
+myself: oujianmin55555

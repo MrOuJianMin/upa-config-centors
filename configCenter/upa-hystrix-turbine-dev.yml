@@ -1,0 +1,14 @@
+server:
+  port: 9532
+spring:
+  application:
+    name: upa-hystrix-turbine
+eureka:
+  client:
+    service-url:
+      defaultZone: http://fsupa:fsupa666@eureka1:9527/eureka/,http://fsupa:fsupa666@eureka2:9528/eureka/
+  instance:
+    prefer-ip-address: true
+turbine:
+  appConfig: upa-client-platform,upa-zervice-zuul
+  clusterNameExpression: "'default'"

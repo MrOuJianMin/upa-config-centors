@@ -1,0 +1,40 @@
+server:
+  port: 9531
+spring:
+  application:
+    name: upa-zervice-zuul
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://fsupa:fsupa666@eureka1:9527/eureka/,http://fsupa:fsupa666@eureka2:9528/eureka/
+  instance:
+    prefer-ip-address: true
+logging:
+  level:
+    feign: DEBUG
+
+zuul:
+  host:
+    connect-timeout-millis: 5000
+    socket-timeout-millis: 5000
+  routes:
+    upa-client-platform: /user/**
+management:
+  security:
+    enabled: false
+
+
+#必须配置
+ribbon:
+  ReadTimeout: 3000
+  ConnectTimeout: 3000
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeout-in-milliseconds: 6000
+  metrics:
+    enabled: true

@@ -1,0 +1,21 @@
+server:
+  port: 9529
+spring:
+  application:
+    name: upa-service-payment
+  zipkin:
+    base-url: http://127.0.0.1:9534
+  sleuth:
+    sampler:
+      percentage: 1.0
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://fsupa:fsupa666@eureka1:9527/eureka/,http://fsupa:fsupa666@eureka2:9528/eureka/
+  instance:
+    prefer-ip-address: true
